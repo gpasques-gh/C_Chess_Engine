@@ -7,10 +7,10 @@
 
 void game_init(Game* game)
 {
-    game->board_array = (int **)malloc(sizeof(int *) * ROWS);
+    game->board_array = malloc(sizeof(int *) * ROWS);
     for (int rows = 0; rows < ROWS; rows++)
     {
-        game->board_array[rows] = (int *)malloc(sizeof(int) * COLS);
+        game->board_array[rows] = malloc(sizeof(int) * COLS);
     }
 
     int board_array_temp[ROWS][COLS] = {
@@ -44,6 +44,8 @@ void game_init(Game* game)
     game->mate = 0;
     game->w_check = 0;
     game->b_check = 0;
+    game->w_pieces_left = W_PIECES;
+    game->b_pieces_left = B_PIECES;
 
     // move
     game->move[0] = 0;
@@ -133,4 +135,59 @@ void move_temp(int* square_a, int* square_b, Game* game)
 {
     game->board_array[square_b[0]][square_b[1]] = game->board_array[square_a[0]][square_a[1]];
     game->board_array[square_a[0]][square_a[1]] = EMPTY;
+}
+
+void move_piece(int* square_a, int* square_b, Game* game)
+{
+    int piece = game->board_array[square_a[0]][square_a[1]];
+    
+    if (piece == 0)
+    {
+        printf("There is no piece on that square.\n");
+        return;
+    }
+
+    if (game->turn == 'w' && piece > 0 && piece < b_p)
+    {
+        int piece_b = game->board_array[square_b[0]][square_b[1]];
+        if (piece_b == 0)
+        {
+            game->board_array[square_b[0]][square_b[1]] = piece;
+            game->board_array[square_a[0]][square_a[1]] = EMPTY;
+        }
+        else if (piece_b >= b_p && piece_b <= b_q)
+        {
+            game->board_array[square_b[0]][square_b[1]] = game->board_array[square_a[0]][square_a[1]];
+            game->board_array[square_a[0]][square_a[1]] = EMPTY;
+            game->b_pieces_left--;
+        }
+        else if (piece_b > 0 && piece_b < b_p)
+        {
+            printf("This is one of your pieces.\n");
+            return;
+        }
+        game->turn = 'b';
+    }
+    else if (game->turn == 'b' && piece >= b_p && piece <= b_q)
+    {
+        int piece_b = game->board_array[square_b[0]][square_b[1]];
+        if (piece_b == 0)
+        {
+            game->board_array[square_b[0]][square_b[1]] = piece;
+            game->board_array[square_a[0]][square_a[1]] = EMPTY;
+        }
+        else if (piece_b > 0 && piece_b < b_p)
+        {
+            game->board_array[square_b[0]][square_b[1]] = game->board_array[square_a[0]][square_a[1]];
+            game->board_array[square_a[0]][square_a[1]] = EMPTY;
+            game->w_pieces_left--;
+        }
+        else if (piece_b >= b_p && piece_b <= b_q)
+        {
+            printf("This is one of your pieces.\n");
+            return;
+        }
+        game->turn = 'w';
+    }
+
 }
