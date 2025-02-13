@@ -137,3 +137,8 @@ void board_printing(Game* game)
     }
 }
 
+void move_temp(int* square_a, int* square_b, Game* game)
+{
+    game->board_array[square_b[0]][square_b[1]] = game->board_array[square_a[0]][square_a[1]];
+    game->board_array[square_a[0]][square_a[1]] = EMPTY;
+}
