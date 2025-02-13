@@ -54,15 +54,11 @@ void game_init(Game* game)
 
 void board_printing(Game* game)
 {
-
-
-
     if (game->board_array == NULL)
     {
         printf("Something went wrong, the board is NULL.\n");
         exit(EXIT_FAILURE);
     }
-
     for (int rows = 0; rows < ROWS; rows++)
     {
         if (rows == 0)
@@ -76,7 +72,6 @@ void board_printing(Game* game)
             {
                 printf("║");
             }
-
             switch (game->board_array[rows][cols])
             {
                 case EMPTY:
@@ -123,13 +118,11 @@ void board_printing(Game* game)
                 default:
                     break;
             }
-
             if (cols == COLS - 1)
             {
                 printf("║\n");
             }
         }
-
         if (rows == ROWS - 1)
         {
             printf("%s", BOTTOM_ROW_CHARS);
