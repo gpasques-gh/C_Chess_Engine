@@ -5,7 +5,6 @@
 #include "defs.h"
 #include "game.h"
 
-
 void game_init(Game* game)
 {
     game->board_array = (int **)malloc(sizeof(int *) * ROWS);
@@ -120,7 +119,7 @@ void board_printing(Game* game)
             }
             if (cols == COLS - 1)
             {
-                printf("║\n");
+                printf("║ %d\n", rows + 1);
             }
         }
         if (rows == ROWS - 1)

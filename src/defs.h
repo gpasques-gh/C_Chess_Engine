@@ -56,6 +56,8 @@
 #define b_k_CHAR "♚"
 
 // BOARD PRINTING CONSTS
-#define TOP_ROW_CHARS "╔════════════════════════════════╗\n"
+#define TOP_ROW_CHARS "\
+  1   2   3   4   5   6   7   8\n\
+╔════════════════════════════════╗\n"
 #define BOTTOM_ROW_CHARS "╚════════════════════════════════╝\n"
 #define EMPTY_SQUARE_CHARS "[  ]"
